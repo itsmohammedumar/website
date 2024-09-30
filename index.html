@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shooting Star Animation</title>
+    <title>Continuous Shooting Star</title>
     <style>
         body {
             background-color: black; /* Background color */
@@ -20,7 +20,6 @@
             background: white;
             border-radius: 50%;
             box-shadow: 0 0 10px white;
-            animation: shoot 1s linear forwards;
             display: none; /* Hidden initially */
         }
 
@@ -44,34 +43,29 @@
 <body>
     <div class="static-star">⭐</div>
     <div class="shooting-star" id="shootingStar"></div>
-    <button id="shootButton">Make a Wish!</button>
 
     <script>
-        document.getElementById('shootButton').addEventListener('click', function() {
+        function createShootingStar() {
             const star = document.getElementById('shootingStar');
             star.style.display = 'block'; // Show the shooting star
             star.style.left = '0'; // Reset position
             star.style.top = `${Math.random() * 100}vh`; // Random vertical position
             
             // Trigger the animation
-            star.offsetWidth; // Trigger reflow
-            star.classList.remove('shooting-star'); // Remove the class to reset animation
-            void star.offsetWidth; // Trigger reflow again
-            star.classList.add('shooting-star'); // Add the class to start animation
+            star.style.animation = 'shoot 1s linear forwards'; // Start the animation
             
             // Hide the star after the animation ends
             setTimeout(() => {
                 star.style.display = 'none';
             }, 1000); // Match the duration of the animation
-        });
+        }
+
+        // Call the function every 2 seconds
+        setInterval(createShootingStar, 2000); // Adjust the interval as needed
     </script>
 </body>
 </html>
 
-    <p>⭐</p>
-    <div class="shooting-star"></div>
-</body>
-</html>
 
     <h1>Shining Star!</h1>
     <img src="your-star-image.jpg" alt="Star">
