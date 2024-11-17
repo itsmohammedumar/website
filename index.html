@@ -1,65 +1,20 @@
 
-      color: blue; /* Set a different color for the heading */
-    }
-  
-</body>
-</html><!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Continuous Shooting Star</title>
-    <style>
-        body {
-            background-color: black; /* Background color */
-            margin: 0;r
-        }
-
-        .shooting-star {
-            position: absolute;
-            width: 2px;
-            height: 10px;
-            background-color: white; /* Color of the shooting star */
-            opacity: 0;
-            animation: shoot 1s linear infinite;
-        }
-
-        @keyframes shoot {
-            0% {
-                transform: translateX(-100px) translateY(0); /* Start off-screen on the left */
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100vw) translateY(100vh); /* Move to the bottom-right */
-     { 
-        my name is mohammed umar           
-                opacity: 0; /* Fade out at the end */
-            }
-        }
-    </style>
+    <title>Dynamic Text Example</title>
 </head>
 <body>
+    <div id="dynamicText"></div>
+
     <script>
-        // Function to create and animate the shooting star
-        function createShootingStar() {
-            const star = document.createElement('div');
-            star.classList.add('shooting-star');
-            
-            // Set a random vertical position for the shooting star
-            star.style.top = `${Math.random() * 100}vh`;
-            
-            // Append the star to the body
-            document.body.appendChild(star);
+        // This is the text you want to display
+        let text = "Hello, welcome to my dynamic page!";
 
-            // Remove the star after the animation ends (1 second)
-            setTimeout(() => {
-                star.remove();
-            }, 1000); // Match the animation duration
-        }
-
-        // Create a new shooting star every 2-3 seconds
-        setInterval(createShootingStar, Math.random() * 1000 + 1500); // Random interval between 1.5-2.5 seconds
+        // JavaScript adds the text to the div with the id "dynamicText"
+        document.getElementById("dynamicText").innerHTML = text;
     </script>
 </body>
 </html>
-
