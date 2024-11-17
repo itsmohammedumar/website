@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+
+      color: blue; /* Set a different color for the heading */
+    }
+  
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,89 +12,53 @@
     <style>
         body {
             background-color: black; /* Background color */
-            color: white;            /* Text color */
-            text-align: center;
-            overflow: hidden;     
-        }
-    </style>
-</head>
-<body>
-    
-</body>
-</html>
+            margin: 0;
+            overflow: hidden;        /* Hide overflow to keep the stars within the viewport */
         }
 
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background-color: white; /* Color of the shooting star */
+            opacity: 0;
+            animation: shoot 1s linear infinite;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(-100px) translateY(0); /* Start off-screen on the left */
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh); /* Move to the bottom-right */
+                opacity: 0; /* Fade out at the end */
             }
         }
-
-        .
-        }
     </style>
 </head>
 <body>
-    <div class="static-star">⭐</div>
-    <div class="shooting-star" id="shootingStar"></div>
-
     <script>
+        // Function to create and animate the shooting star
         function createShootingStar() {
-            const star = document.getElementById('shootingStar');
-            star.style.display = 'block'; // Show the shooting star
-            star.style.left = '0'; // Reset position
-            star.style.top = `${Math.random() * 100}vh`; // Random vertical position
+            const star = document.createElement('div');
+            star.classList.add('shooting-star');
             
-            // Trigger the animation
-            star.style.animation = 'shoot 1s linear forwards'; // Start the animation
+            // Set a random vertical position for the shooting star
+            star.style.top = `${Math.random() * 100}vh`;
             
-            // Hide the star after the animation ends
+            // Append the star to the body
+            document.body.appendChild(star);
+
+            // Remove the star after the animation ends (1 second)
             setTimeout(() => {
-                star.style.display = 'none';
-            }, 1000); // Match the duration of the animation
+                star.remove();
+            }, 1000); // Match the animation duration
         }
 
-        // Call the function every 2 seconds
-        setInterval(createShootingStar, 2000); // Adjust the interval as needed
-      <div class="static-star">⭐</div>
-   <p style="color: nd purple;mix;"> 
-    
-        
+        // Create a new shooting star every 2-3 seconds
+        setInterval(createShootingStar, Math.random() * 1000 + 1500); // Random interval between 1.5-2.5 seconds
     </script>
 </body>
 </html>
 
-
-    <h1>Shining Star!</h1>
-    <img src="your-star-image.jpg" alt="Star">
-    <p>This is a shining star!</p>
-</body>
-</html>
-
-
-<p>it is a best star</p>
-
-
-  <h1>My Website</h1>
-  <p>My name is Umar</p>
-  <p>This is a program.</p>
-  <p>i started coding when im 8 year</p>
-  
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>   
-
-  <style>
-    body {
-      color: cyan; /* Set the color for all text elements */
-    }
-
-    h1 {
-      color: blue; /* Set a different color for the heading */
-    }
-  
-</body>
-</html>
