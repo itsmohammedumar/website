@@ -3,60 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey into Tech</title>
+    <title>Welcome</title>
     <style>
-        <p>★</p>
-        <i class="fas fa-star" style="font-size: 50px; color: gold;"></i>
-        <img src="star-image.png" alt="Star">
-
-
-        /* Set the background color to white */
         body {
-            background-color: black;  /* black background */
-            color: white;               /*white text */
-            font-family: Arial, sans-serif;  /* Set a simple font */
+            background-color: black;  /* Black background */
+            color: white;  /* White text */
+            font-family: Arial, sans-serif;
+            text-align: center;
             margin: 0;
+            padding: 0;
+            height: 100vh;
             display: flex;
-            flex-direction: column;    /* Stack the elements vertically */
-            height: 100vh;             /* Full viewport height */
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Style for the top heading */
-        .top-heading {
-            font-size: 3rem;  /* Large font size */
-            text-align: center;
-            margin-top: 20px;  /* Add space from the top */
-            letter-spacing: 2px;  /* Add space between letters */
+        h1 {
+            font-size: 36px;
+            z-index: 2;
         }
 
-        /* Style for the bottom heading */
-        .bottom-heading {
-            font-size: 4rem;  /* Large font size */
-            text-align: center;
-            margin-top: auto;  /* Pushes this element to the bottom */
-            letter-spacing: 5px;  /* Add space between letters */
+        /* Shooting star effect */
+        .shooting-star {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background-color: white;
+            animation: shoot 2s linear infinite;
         }
 
-        p {
-            font-size: 1.5rem;  /* Medium font size for the paragraph */
-            text-align: center;
-            color: white;  /* Set text color to white for the paragraph */
+        /* Animation for shooting star */
+        @keyframes shoot {
+            0% {
+                top: 0;
+                left: 50%;
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                left: 100%;
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Top Heading with Text -->
-    <h1 class="top-heading">Journey into Tech</h1>
 
-    <!-- Optional Paragraph -->
-    <title>
- <h2<p>Explore the exciting world of technology! From coding to we'll take you on a journey through the vast landscape of innovation and learning in tech.<h2
+    <h1>Welcome to the world of technology</h1>
 
-    <!-- Bottom Heading with Text -->
-    <h1 class="bottom-heading">Welcome to My Website</h1>
-    welcome to my tiny website</h1>
+    <!-- Shooting stars effect (Multiple stars) -->
+    <div class="shooting-star" style="animation-delay: 0s;"></div>
+    <div class="shooting-star" style="animation-delay: 1s;"></div>
+    <div class="shooting-star" style="animation-delay: 2s;"></div>
+    <div class="shooting-star" style="animation-delay: 3s;"></div>
+    <div class="shooting-star" style="animation-delay: 4s;"></div>
+
 </body>
 </html>
+v
 
 </html>
 
