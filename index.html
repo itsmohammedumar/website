@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Users List</title>
+    <meta name="description" content="A modern, responsive HTML website with light/dark theme toggle and a contact form.">
+    <meta name="author" content="Your Name">
+    <title>My Professional Website</title>
     <style>
-        /* Reset CSS for consistency across browsers */
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -13,287 +15,238 @@
         }
 
         body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1, h2, h3 {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f6f9;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: #333;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #f4c542;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://via.placeholder.com/1600x600') no-repeat center center/cover;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            background-color: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            overflow: hidden;
-        }
-
-        h1 {
+            color: white;
             text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* About Section */
+        #about {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        #about h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        #about p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* Contact Form */
+        #contact {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        #contact h2 {
             font-size: 2rem;
             margin-bottom: 20px;
         }
 
-        .input-section {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+        #contact form {
+            display: grid;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        input[type="text"], select {
+        #contact input, #contact textarea {
             padding: 12px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            width: 100%;
-            outline: none;
-            transition: border 0.3s;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
         }
 
-        input[type="text"]:focus, select:focus {
-            border-color: #007bff;
-        }
-
-        button {
-            background-color: #28a745;
-            color: white;
-            font-size: 16px;
+        #contact button {
             padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            border: none;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f8f9fa;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 8px 0;
-            transition: background-color 0.3s;
-        }
-
-        li:hover {
-            background-color: #e9ecef;
-        }
-
-        .remove-btn {
-            background-color: #dc3545;
+            background-color: #f4c542;
             color: white;
             border: none;
             border-radius: 6px;
-            padding: 6px 12px;
             cursor: pointer;
+            font-size: 1.1rem;
             transition: background-color 0.3s;
         }
 
-        .remove-btn:hover {
-            background-color: #c82333;
+        #contact button:hover {
+            background-color: #e0a200;
         }
 
-        .empty-message {
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
             text-align: center;
-            color: #6c757d;
-            font-size: 1rem;
         }
 
         /* Dark Mode */
         body.dark-mode {
             background-color: #121212;
+            color: #f4f4f4;
         }
 
-        body.dark-mode .container {
-            background-color: #1e1e1e;
-            color: white;
+        body.dark-mode nav {
+            background: #222;
         }
 
-        body.dark-mode h1, body.dark-mode .empty-message {
-            color: white;
+        body.dark-mode nav ul li a {
+            color: #bbb;
         }
 
-        body.dark-mode button {
-            background-color: #17a2b8;
+        body.dark-mode nav ul li a:hover {
+            color: #f4c542;
         }
 
-        body.dark-mode button:hover {
-            background-color: #138496;
+        body.dark-mode .hero {
+            background: url('https://via.placeholder.com/1600x600/333') no-repeat center center/cover;
+        }
+
+        body.dark-mode footer {
+            background-color: #222;
         }
 
         .theme-toggle-btn {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #007bff;
-            color: white;
-            padding: 8px 16px;
+            background-color: #f4c542;
             border: none;
+            padding: 10px 20px;
             border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         .theme-toggle-btn:hover {
-            background-color: #0056b3;
+            background-color: #e0a200;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <button class="theme-toggle-btn" onclick="toggleTheme()">Toggle Dark Mode</button>
+    <button class="theme-toggle-btn" onclick="toggleTheme()">🌙 / 🌞</button>
 
-    <div class="container">
-        <h1>Pro User's List</h1>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <div class="input-section">
-            <input type="text" id="userInput" placeholder="Enter item here..." />
-            <select id="categorySelect">
-                <option value="">Select Category</option>
-                <option value="Work">Work</option>
-                <option value="Personal">Personal</option>
-                <option value="Other">Other</option>
-            </select>
-            <button id="addBtn" onclick="addToList()" disabled>Add to List</button>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div>
+            <h1>Welcome to My Professional Website</h1>
+            <p>Your one-stop destination for amazing content and services.</p>
         </div>
+    </section>
 
-        <h2>List of Items</h2>
-        <ul id="list"></ul>
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We are a professional team dedicated to providing high-quality services that help businesses thrive in the digital world. Our focus is on innovation, customer satisfaction, and delivering results that exceed expectations.</p>
+        <p>Our team consists of experts in web design, development, digital marketing, and more. Together, we aim to help our clients succeed in their online endeavors.</p>
+    </section>
 
-        <p class="empty-message" id="emptyMessage">The list is empty! Add something.</p>
-    </div>
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" id="name" name="name" placeholder="Your Name" required />
+            <input type="email" id="email" name="email" placeholder="Your Email" required />
+            <textarea id="message" name="message" placeholder="Your Message" rows="6" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2024 My Professional Website | All Rights Reserved</p>
+    </footer>
 
     <script>
-        // Initialize the list from localStorage if available
-        window.onload = function() {
-            loadList();
-        };
-
-        // Toggle dark mode
+        // Dark/Light Mode Toggle Function
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
         }
 
-        function loadList() {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-            const listElement = document.getElementById("list");
-            const emptyMessage = document.getElementById("emptyMessage");
-
-            // Clear the current list
-            listElement.innerHTML = "";
-
-            // Loop through the saved list and display items
-            savedList.forEach(item => {
-                const li = createListItem(item.text, item.category);
-                listElement.appendChild(li);
-            });
-
-            // Toggle empty message visibility
-            if (savedList.length === 0) {
-                emptyMessage.style.display = "block";
-            } else {
-                emptyMessage.style.display = "none";
-            }
-        }
-
-        function createListItem(text, category) {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <span>${text} <strong>(${category})</strong></span>
-                <button class="remove-btn" onclick="removeItem('${text}')">Remove</button>
-            `;
-            return li;
-        }
-
-        function addToList() {
-            const inputField = document.getElementById("userInput");
-            const categorySelect = document.getElementById("categorySelect");
-            const inputValue = inputField.value.trim();
-            const selectedCategory = categorySelect.value;
-
-            if (inputValue === "") {
-                showAlert("Please enter something.");
-                return;
-            }
-
-            if (!selectedCategory) {
-                showAlert("Please select a category.");
-                return;
-            }
-
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Check if the item already exists
-            if (savedList.some(item => item.text === inputValue)) {
-                showAlert("This item is already in the list.");
-                return;
-            }
-
-            // Add the new item to the list
-            savedList.push({ text: inputValue, category: selectedCategory });
-
-            // Save to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Clear the input fields
-            inputField.value = "";
-            categorySelect.value = "";
-
-            // Reload the list to reflect changes
-            loadList();
-        }
-
-        function removeItem(itemText) {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-            savedList = savedList.filter(item => item.text !== itemText);
-
-            // Update localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Reload the list
-            loadList();
-        }
-
-        // Alert box to provide user feedback
-        function showAlert(message) {
-            alert(message);
-        }
-
-        // Enable/disable Add button based on input
-        document.getElementById("userInput").addEventListener('input', toggleAddButton);
-        document.getElementById("categorySelect").addEventListener('change', toggleAddButton);
-
-        function toggleAddButton() {
-            const inputValue = document.getElementById("userInput").value.trim();
-            const categoryValue = document.getElementById("categorySelect").value;
-            const addButton = document.getElementById("addBtn");
-
-            addButton.disabled = !(inputValue && categoryValue);
-        }
+        // Contact Form Submission (just for demo purposes)
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Your message has been sent!");
+            document.getElementById("contactForm").reset();
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
