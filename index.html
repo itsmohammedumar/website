@@ -3,85 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Add to List</title>
+    <title>Pro Users List</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        /* Reset CSS for consistency across browsers */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f9;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
+
         .container {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            overflow: hidden;
+        }
+
+        h1 {
             text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
-        input, button {
-            padding: 10px;
-            margin: 10px;
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], select {
+            padding: 12px;
             font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            outline: none;
+            transition: border 0.3s;
         }
+
+        input[type="text"]:focus, select:focus {
+            border-color: #007bff;
+        }
+
         button {
-            cursor: pointer;
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
             border: none;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #218838;
         }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         li {
-            background-color: #e9ecef;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            transition: background-color 0.3s;
         }
+
+        li:hover {
+            background-color: #e9ecef;
+        }
+
         .remove-btn {
             background-color: #dc3545;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
+            border-radius: 6px;
+            padding: 6px 12px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
+
         .remove-btn:hover {
             background-color: #c82333;
         }
+
         .empty-message {
+            text-align: center;
             color: #6c757d;
-            font-size: 14px;
-            margin-top: 20px;
+            font-size: 1rem;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #121212;
+        }
+
+        body.dark-mode .container {
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        body.dark-mode h1, body.dark-mode .empty-message {
+            color: white;
+        }
+
+        body.dark-mode button {
+            background-color: #17a2b8;
+        }
+
+        body.dark-mode button:hover {
+            background-color: #138496;
+        }
+
+        .theme-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Dynamic List</h1>
-        <input type="text" id="userInput" placeholder="Enter something..." />
-        <button onclick="addToList()">Add to List</button>
+    <button class="theme-toggle-btn" onclick="toggleTheme()">Toggle Dark Mode</button>
 
-        <h2>Items in List</h2>
+    <div class="container">
+        <h1>Pro User's List</h1>
+
+        <div class="input-section">
+            <input type="text" id="userInput" placeholder="Enter item here..." />
+            <select id="categorySelect">
+                <option value="">Select Category</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Other">Other</option>
+            </select>
+            <button id="addBtn" onclick="addToList()" disabled>Add to List</button>
+        </div>
+
+        <h2>List of Items</h2>
         <ul id="list"></ul>
 
-        <p class="empty-message" id="emptyMessage">The list is empty!</p>
+        <p class="empty-message" id="emptyMessage">The list is empty! Add something.</p>
     </div>
 
     <script>
@@ -89,6 +186,11 @@
         window.onload = function() {
             loadList();
         };
+
+        // Toggle dark mode
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
 
         function loadList() {
             let savedList = JSON.parse(localStorage.getItem('list')) || [];
@@ -100,7 +202,7 @@
 
             // Loop through the saved list and display items
             savedList.forEach(item => {
-                const li = createListItem(item);
+                const li = createListItem(item.text, item.category);
                 listElement.appendChild(li);
             });
 
@@ -112,795 +214,84 @@
             }
         }
 
-        function createListItem(item) {
+        function createListItem(text, category) {
             const li = document.createElement("li");
-
-            // Create text for list item
-            const textNode = document.createTextNode(item);
-            li.appendChild(textNode);
-
-            // Create remove button
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
-            removeButton.classList.add("remove-btn");
-            removeButton.onclick = function() {
-                removeItem(item);
-            };
-
-            // Add remove button to the list item
-            li.appendChild(removeButton);
-
+            li.innerHTML = `
+                <span>${text} <strong>(${category})</strong></span>
+                <button class="remove-btn" onclick="removeItem('${text}')">Remove</button>
+            `;
             return li;
         }
 
         function addToList() {
             const inputField = document.getElementById("userInput");
+            const categorySelect = document.getElementById("categorySelect");
             const inputValue = inputField.value.trim();
+            const selectedCategory = categorySelect.value;
 
             if (inputValue === "") {
-                alert("Please enter something.");
+                showAlert("Please enter something.");
+                return;
+            }
+
+            if (!selectedCategory) {
+                showAlert("Please select a category.");
                 return;
             }
 
             let savedList = JSON.parse(localStorage.getItem('list')) || [];
 
-            // Check if the item already exists in the list
-            if (savedList.includes(inputValue)) {
-                alert("This item is already in the list.");
+            // Check if the item already exists
+            if (savedList.some(item => item.text === inputValue)) {
+                showAlert("This item is already in the list.");
                 return;
             }
 
-            // Add the new item to the saved list
-            savedList.push(inputValue);
+            // Add the new item to the list
+            savedList.push({ text: inputValue, category: selectedCategory });
 
-            // Save updated list to localStorage
+            // Save to localStorage
             localStorage.setItem('list', JSON.stringify(savedList));
 
-            // Clear the input field
+            // Clear the input fields
             inputField.value = "";
+            categorySelect.value = "";
 
-            // Reload the list to reflect the new item
+            // Reload the list to reflect changes
             loadList();
         }
 
-        function removeItem(item) {
+        function removeItem(itemText) {
             let savedList = JSON.parse(localStorage.getItem('list')) || [];
+            savedList = savedList.filter(item => item.text !== itemText);
 
-            // Remove the item from the list
-            savedList = savedList.filter(existingItem => existingItem !== item);
-
-            // Save the updated list to localStorage
+            // Update localStorage
             localStorage.setItem('list', JSON.stringify(savedList));
 
-            // Reload the list to reflect the changes
-            loadList();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Add to List</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background-color: #e9ecef;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .remove-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .remove-btn:hover {
-            background-color: #c82333;
-        }
-        .empty-message {
-            color: #6c757d;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Dynamic List</h1>
-        <input type="text" id="userInput" placeholder="Enter something..." />
-        <button onclick="addToList()">Add to List</button>
-
-        <h2>Items in List</h2>
-        <ul id="list"></ul>
-
-        <p class="empty-message" id="emptyMessage">The list is empty!</p>
-    </div>
-
-    <script>
-        // Initialize the list from localStorage if available
-        window.onload = function() {
-            loadList();
-        };
-
-        function loadList() {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-            const listElement = document.getElementById("list");
-            const emptyMessage = document.getElementById("emptyMessage");
-
-            // Clear the current list
-            listElement.innerHTML = "";
-
-            // Loop through the saved list and display items
-            savedList.forEach(item => {
-                const li = createListItem(item);
-                listElement.appendChild(li);
-            });
-
-            // Toggle empty message visibility
-            if (savedList.length === 0) {
-                emptyMessage.style.display = "block";
-            } else {
-                emptyMessage.style.display = "none";
-            }
-        }
-
-        function createListItem(item) {
-            const li = document.createElement("li");
-
-            // Create text for list item
-            const textNode = document.createTextNode(item);
-            li.appendChild(textNode);
-
-            // Create remove button
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
-            removeButton.classList.add("remove-btn");
-            removeButton.onclick = function() {
-                removeItem(item);
-            };
-
-            // Add remove button to the list item
-            li.appendChild(removeButton);
-
-            return li;
-        }
-
-        function addToList() {
-            const inputField = document.getElementById("userInput");
-            const inputValue = inputField.value.trim();
-
-            if (inputValue === "") {
-                alert("Please enter something.");
-                return;
-            }
-
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Check if the item already exists in the list
-            if (savedList.includes(inputValue)) {
-                alert("This item is already in the list.");
-                return;
-            }
-
-            // Add the new item to the saved list
-            savedList.push(inputValue);
-
-            // Save updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Clear the input field
-            inputField.value = "";
-
-            // Reload the list to reflect the new item
+            // Reload the list
             loadList();
         }
 
-        function removeItem(item) {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Remove the item from the list
-            savedList = savedList.filter(existingItem => existingItem !== item);
-
-            // Save the updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Reload the list to reflect the changes
-            loadList();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Add to List</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background-color: #e9ecef;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .remove-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .remove-btn:hover {
-            background-color: #c82333;
-        }
-        .empty-message {
-            color: #6c757d;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Dynamic List</h1>
-        <input type="text" id="userInput" placeholder="Enter something..." />
-        <button onclick="addToList()">Add to List</button>
-
-        <h2>Items in List</h2>
-        <ul id="list"></ul>
-
-        <p class="empty-message" id="emptyMessage">The list is empty!</p>
-    </div>
-
-    <script>
-        // Initialize the list from localStorage if available
-        window.onload = function() {
-            loadList();
-        };
-
-        function loadList() {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-            const listElement = document.getElementById("list");
-            const emptyMessage = document.getElementById("emptyMessage");
-
-            // Clear the current list
-            listElement.innerHTML = "";
-
-            // Loop through the saved list and display items
-            savedList.forEach(item => {
-                const li = createListItem(item);
-                listElement.appendChild(li);
-            });
-
-            // Toggle empty message visibility
-            if (savedList.length === 0) {
-                emptyMessage.style.display = "block";
-            } else {
-                emptyMessage.style.display = "none";
-            }
+        // Alert box to provide user feedback
+        function showAlert(message) {
+            alert(message);
         }
 
-        function createListItem(item) {
-            const li = document.createElement("li");
-
-            // Create text for list item
-            const textNode = document.createTextNode(item);
-            li.appendChild(textNode);
-
-            // Create remove button
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
-            removeButton.classList.add("remove-btn");
-            removeButton.onclick = function() {
-                removeItem(item);
-            };
-
-            // Add remove button to the list item
-            li.appendChild(removeButton);
-
-            return li;
-        }
-
-        function addToList() {
-            const inputField = document.getElementById("userInput");
-            const inputValue = inputField.value.trim();
-
-            if (inputValue === "") {
-                alert("Please enter something.");
-                return;
-            }
-
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Check if the item already exists in the list
-            if (savedList.includes(inputValue)) {
-                alert("This item is already in the list.");
-                return;
-            }
-
-            // Add the new item to the saved list
-            savedList.push(inputValue);
-
-            // Save updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Clear the input field
-            inputField.value = "";
-
-            // Reload the list to reflect the new item
-            loadList();
-        }
-
-        function removeItem(item) {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Remove the item from the list
-            savedList = savedList.filter(existingItem => existingItem !== item);
-
-            // Save the updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Reload the list to reflect the changes
-            loadList();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Add to List</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background-color: #e9ecef;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .remove-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .remove-btn:hover {
-            background-color: #c82333;
-        }
-        .empty-message {
-            color: #6c757d;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Dynamic List</h1>
-        <input type="text" id="userInput" placeholder="Enter something..." />
-        <button onclick="addToList()">Add to List</button>
-
-        <h2>Items in List</h2>
-        <ul id="list"></ul>
-
-        <p class="empty-message" id="emptyMessage">The list is empty!</p>
-    </div>
-
-    <script>
-        // Initialize the list from localStorage if available
-        window.onload = function() {
-            loadList();
-        };
-
-        function loadList() {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-            const listElement = document.getElementById("list");
-            const emptyMessage = document.getElementById("emptyMessage");
-
-            // Clear the current list
-            listElement.innerHTML = "";
-
-            // Loop through the saved list and display items
-            savedList.forEach(item => {
-                const li = createListItem(item);
-                listElement.appendChild(li);
-            });
-
-            // Toggle empty message visibility
-            if (savedList.length === 0) {
-                emptyMessage.style.display = "block";
-            } else {
-                emptyMessage.style.display = "none";
-            }
-        }
-
-        function createListItem(item) {
-            const li = document.createElement("li");
-
-            // Create text for list item
-            const textNode = document.createTextNode(item);
-            li.appendChild(textNode);
-
-            // Create remove button
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
-            removeButton.classList.add("remove-btn");
-            removeButton.onclick = function() {
-                removeItem(item);
-            };
-
-            // Add remove button to the list item
-            li.appendChild(removeButton);
-
-            return li;
-        }
-
-        function addToList() {
-            const inputField = document.getElementById("userInput");
-            const inputValue = inputField.value.trim();
-
-            if (inputValue === "") {
-                alert("Please enter something.");
-                return;
-            }
-
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Check if the item already exists in the list
-            if (savedList.includes(inputValue)) {
-                alert("This item is already in the list.");
-                return;
-            }
-
-            // Add the new item to the saved list
-            savedList.push(inputValue);
-
-            // Save updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Clear the input field
-            inputField.value = "";
-
-            // Reload the list to reflect the new item
-            loadList();
-        }
-
-        function removeItem(item) {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Remove the item from the list
-            savedList = savedList.filter(existingItem => existingItem !== item);
-
-            // Save the updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Reload the list to reflect the changes
-            loadList();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Add to List</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background-color: #e9ecef;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .remove-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .remove-btn:hover {
-            background-color: #c82333;
-        }
-        .empty-message {
-            color: #6c757d;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Dynamic List</h1>
-        <input type="text" id="userInput" placeholder="Enter something..." />
-        <button onclick="addToList()">Add to List</button>
-
-        <h2>Items in List</h2>
-        <ul id="list"></ul>
-
-        <p class="empty-message" id="emptyMessage">The list is empty!</p>
-    </div>
-
-    <script>
-        // Initialize the list from localStorage if available
-        window.onload = function() {
-            loadList();
-        };
-
-        function loadList() {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-            const listElement = document.getElementById("list");
-            const emptyMessage = document.getElementById("emptyMessage");
-
-            // Clear the current list
-            listElement.innerHTML = "";
-
-            // Loop through the saved list and display items
-            savedList.forEach(item => {
-                const li = createListItem(item);
-                listElement.appendChild(li);
-            });
-
-            // Toggle empty message visibility
-            if (savedList.length === 0) {
-                emptyMessage.style.display = "block";
-            } else {
-                emptyMessage.style.display = "none";
-            }
-        }
-
-        function createListItem(item) {
-            const li = document.createElement("li");
-
-            // Create text for list item
-            const textNode = document.createTextNode(item);
-            li.appendChild(textNode);
-
-            // Create remove button
-            const removeButton = document.createElement("button");
-            removeButton.textContent = "Remove";
-            removeButton.classList.add("remove-btn");
-            removeButton.onclick = function() {
-                removeItem(item);
-            };
-
-            // Add remove button to the list item
-            li.appendChild(removeButton);
-
-            return li;
-        }
-
-        function addToList() {
-            const inputField = document.getElementById("userInput");
-            const inputValue = inputField.value.trim();
-
-            if (inputValue === "") {
-                alert("Please enter something.");
-                return;
-            }
-
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Check if the item already exists in the list
-            if (savedList.includes(inputValue)) {
-                alert("This item is already in the list.");
-                return;
-            }
-
-            // Add the new item to the saved list
-            savedList.push(inputValue);
-
-            // Save updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Clear the input field
-            inputField.value = "";
-
-            // Reload the list to reflect the new item
-            loadList();
-        }
-
-        function removeItem(item) {
-            let savedList = JSON.parse(localStorage.getItem('list')) || [];
-
-            // Remove the item from the list
-            savedList = savedList.filter(existingItem => existingItem !== item);
-
-            // Save the updated list to localStorage
-            localStorage.setItem('list', JSON.stringify(savedList));
-
-            // Reload the list to reflect the changes
-            loadList();
+        // Enable/disable Add button based on input
+        document.getElementById("userInput").addEventListener('input', toggleAddButton);
+        document.getElementById("categorySelect").addEventListener('change', toggleAddButton);
+
+        function toggleAddButton() {
+            const inputValue = document.getElementById("userInput").value.trim();
+            const categoryValue = document.getElementById("categorySelect").value;
+            const addButton = document.getElementById("addBtn");
+
+            addButton.disabled = !(inputValue && categoryValue);
         }
     </script>
 </body>
 </html>
 
-
-</html>
 
 
 
