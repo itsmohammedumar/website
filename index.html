@@ -3,250 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A modern, responsive HTML website with light/dark theme toggle and a contact form.">
-    <meta name="author" content="Your Name">
-    <title>My Professional Website</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #fff;
-            color: #333;
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        /* Navigation Bar */
-        nav {
-            background: #333;
-            padding: 10px 20px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: center;
-            list-style-type: none;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            font-size: 18px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #f4c542;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: url('https://via.placeholder.com/1600x600') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-        }
-
-        /* About Section */
-        #about {
-            padding: 80px 20px;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-
-        #about h2 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-
-        #about p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        /* Contact Form */
-        #contact {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        #contact h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        #contact form {
-            display: grid;
-            gap: 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        #contact input, #contact textarea {
-            padding: 12px;
-            font-size: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-        }
-
-        #contact button {
-            padding: 12px;
-            background-color: #f4c542;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: background-color 0.3s;
-        }
-
-        #contact button:hover {
-            background-color: #e0a200;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* Dark Mode */
-        body.dark-mode {
-            background-color: #121212;
-            color: #f4f4f4;
-        }
-
-        body.dark-mode nav {
-            background: #222;
-        }
-
-        body.dark-mode nav ul li a {
-            color: #bbb;
-        }
-
-        body.dark-mode nav ul li a:hover {
-            color: #f4c542;
-        }
-
-        body.dark-mode .hero {
-            background: url('https://via.placeholder.com/1600x600/333') no-repeat center center/cover;
-        }
-
-        body.dark-mode footer {
-            background-color: #222;
-        }
-
-        .theme-toggle-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #f4c542;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .theme-toggle-btn:hover {
-            background-color: #e0a200;
-        }
-
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <title>My Awesome Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <button class="theme-toggle-btn" onclick="toggleTheme()">🌙 / 🌞</button>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div>
-            <h1>Welcome to My Professional Website</h1>
-            <p>Your one-stop destination for amazing content and services.</p>
-        </div>
+    <section id="home">
+        <h1>Welcome to My Awesome Website</h1>
+        <p>This is a basic structure for a modern website.</p>
     </section>
 
-    <!-- About Section -->
     <section id="about">
         <h2>About Us</h2>
-        <p>We are a professional team dedicated to providing high-quality services that help businesses thrive in the digital world. Our focus is on innovation, customer satisfaction, and delivering results that exceed expectations.</p>
-        <p>Our team consists of experts in web design, development, digital marketing, and more. Together, we aim to help our clients succeed in their online endeavors.</p>
+        <p>Learn more about us and our mission.</p>
     </section>
 
-    <!-- Contact Section -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <p>We offer web development, design, and more.</p>
+    </section>
+
     <section id="contact">
         <h2>Contact Us</h2>
-        <form id="contactForm">
-            <input type="text" id="name" name="name" placeholder="Your Name" required />
-            <input type="email" id="email" name="email" placeholder="Your Email" required />
-            <textarea id="message" name="message" placeholder="Your Message" rows="6" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+        <p>Get in touch with us for more information.</p>
     </section>
 
-    <!-- Footer Section -->
     <footer>
-        <p>© 2024 My Professional Website | All Rights Reserved</p>
+        <p>&copy; 2024 My Awesome Website</p>
     </footer>
-
-    <script>
-        // Dark/Light Mode Toggle Function
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
-
-        // Contact Form Submission (just for demo purposes)
-        document.getElementById("contactForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            alert("Your message has been sent!");
-            document.getElementById("contactForm").reset();
-        });
-    </script>
 </body>
 </html>
+
