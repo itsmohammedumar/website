@@ -1,61 +1,122 @@
-<!doctype html>
-     </bordy>   
-       
-<img src"C:\Users\User\Desktop\Umar html\New folder\star.jpg">
-        }
-
-        @keyframes sparkleAnim {
-            0% {
-                opacity: 0;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.5);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1);
-            }
-        }
-    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body<body style="background-color: black1b1b1b;">
-    <h1><big><strong>welcome to my amazing website</strong></big></h1>
-    <h2> My name is Mohammed Umar </h2>
-<p> <imag scr="Image.jpg",washington dc></p>
+<body>
+
+    <header>
+        <nav>
+            <h1>My Website</h1>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Welcome to My Website</h2>
+        <p>This is a simple responsive website using HTML and CSS.</p>
+        <a href="#" class="btn">Learn More</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 My Website. All rights reserved.</p>
+         /* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar styles */
+header {
+    background: #333;
+    padding: 15px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: auto;
+}
+
+nav h1 {
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: yellow;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: url('https://source.unsplash.com/1600x900/?nature,technology') no-repeat center center/cover;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: yellow;
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background: orange;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    color: white;
+    margin-top: 20px;
+}
+
+    </footer>
+
 </body>
 </html>
-  <p>I love learning coding and how to make web pages .It's fun.</p>
-    <script>
-        // Function to add sparkle effect
-        function addSparkles() {
-            const textElement = document.getElementById("sparkleText");
-            const text = textElement.innerText;
-            textElement.innerHTML = "";  // Clear the existing text
 
-            // Loop through the text and wrap each character with a span
-            for (let i = 0; i < text.length; i++) {
-                const char = document.createElement('span');
-                char.innerText = text[i];
-
-                //  the sparkle "✨" around the characters randomly
-                if (text[i] === '✨') {
-                    const sparkle = document.createElement('span');
-                    sparkle.classList.add('sparkle');
-                    sparkle.innerText = "✨";
-                    textElement.appendChild(sparkle);
-                }
-
-                textElement.appendChild(char);
-            }
-        }
-
-        // Add sparkle effect after the page is loaded
-        window.onload = addSparkles;
-    </script>
-</body>
-</html>
-
-
+                              
 
