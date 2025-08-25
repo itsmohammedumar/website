@@ -361,7 +361,7 @@
         </footer>
     </div>
 
-    <script>
+    
         function animateMango(mango) {
             mango.style.transform = "rotate(-45deg) scale(1.2)";
             
@@ -409,6 +409,6 @@
                     break;
             }
         }
-    </script>
+    
 </body>
 </html>
