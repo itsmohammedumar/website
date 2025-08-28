@@ -406,7 +406,7 @@
                 case 'purple':
                     body.style.background = "linear-gradient(135deg, #d9a7c7 0%, #fffcdc 100%)";
                     message.textContent = "Purple is magical! ✨";
-                    break;
+                    break; 
             }
         }
     
